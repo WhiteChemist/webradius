@@ -12,3 +12,9 @@ operations = [
     ("=*","=*"),
     ("!*","!*")
 ]
+
+vendors = [
+    ("0","Other"),
+    ("1","Mikrotik"),
+    ("2","Cisco")
+]

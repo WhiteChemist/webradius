@@ -1,7 +1,8 @@
 from django.db import models
-from .data_types import operations
+from .data_types import operations,vendors
 
 # Create your models here.
+
 
 class radacct(models.Model):
     AcctSessionId = models.TextField()
@@ -39,34 +40,44 @@ class radacct(models.Model):
     #         models.Index(fields=['AcctUniqId'],name='radacct_active_session_idx',condition=models.Q(AcctStopTime is None))
     #     ]
 
+
 class radcheck(models.Model):
-    UserName = models.TextField(null=False,default='',)
-    Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
-    Value = models.TextField(null=False,default='')
+    UserName = models.TextField(null=False, default='',)
+    Attribute = models.TextField(null=False, default='')
+    op = models.CharField(max_length=2, choices=operations,
+                          null=False, default='==')
+    Value = models.TextField(null=False, default='')
+
 
 class radgroupcheck(models.Model):
-    GroupName = models.TextField(null=False,default='')
-    Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
-    Value = models.TextField(null=False,default='')
+    GroupName = models.TextField(null=False, default='')
+    Attribute = models.TextField(null=False, default='')
+    op = models.CharField(max_length=2, choices=operations,
+                          null=False, default='==')
+    Value = models.TextField(null=False, default='')
+
 
 class radgroupreply(models.Model):
-    GroupName = models.TextField(null=False,default='')
-    Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
-    Value = models.TextField(null=False,default='')
+    GroupName = models.TextField(null=False, default='')
+    Attribute = models.TextField(null=False, default='')
+    op = models.CharField(max_length=2, choices=operations,
+                          null=False, default='==')
+    Value = models.TextField(null=False, default='')
+
 
 class radreply(models.Model):
-    UserName = models.TextField(null=False,default='',)
-    Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
-    Value = models.TextField(null=False,default='')
+    UserName = models.TextField(null=False, default='',)
+    Attribute = models.TextField(null=False, default='')
+    op = models.CharField(max_length=2, choices=operations,
+                          null=False, default='==')
+    Value = models.TextField(null=False, default='')
+
 
 class radusergroup(models.Model):
-    UserName = models.TextField(null=False,default='',db_index=True)
-    GroupName = models.TextField(null=False,default='',)
-    priority = models.IntegerField(null=False,default=0)
+    UserName = models.TextField(null=False, default='', db_index=True)
+    GroupName = models.TextField(null=False, default='',)
+    priority = models.IntegerField(null=False, default=0)
+
 
 class radpostauth(models.Model):
     username = models.TextField(null=False)
@@ -74,20 +85,21 @@ class radpostauth(models.Model):
     reply = models.TextField()
     CalledStationId = models.TextField()
     CallingStationId = models.TextField()
-    authdate = models.DateTimeField(null=False,default='now()')
+    authdate = models.DateTimeField(null=False, default='now()')
     Class = models.TextField()
 
+
 class nas(models.Model):
-    nasname = models.TextField(null=False,db_index=True)
+    nasname = models.TextField(null=False, db_index=True)
     shortname = models.TextField(null=False)
-    type = models.TextField(null=False,default='Mikrotik')
+    type = models.TextField(null=False, choices=vendors, default='Other')
     ports = models.IntegerField()
     secret = models.TextField(null=False)
     server = models.TextField()
     community = models.TextField()
     description = models.TextField()
 
+
 class nasreload(models.Model):
     NASIPAddress = models.GenericIPAddressField(primary_key=True)
     ReloadTime = models.DateTimeField(null=False)
-    
