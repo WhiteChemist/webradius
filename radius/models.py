@@ -1,4 +1,3 @@
-from certifi import where
 from django.db import models
 from .data_types import operations
 
@@ -34,6 +33,11 @@ class radacct(models.Model):
     FramedInterfaceId = models.TextField()
     DelegatedIPv6Prefix = models.TextField()
     Class = models.TextField()
+
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['AcctUniqId'],name='radacct_active_session_idx',condition=models.Q(AcctStopTime is None))
+    #     ]
 
 class radcheck(models.Model):
     UserName = models.TextField(null=False,default='',)
