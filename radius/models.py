@@ -1,13 +1,16 @@
+from certifi import where
 from django.db import models
+from .data_types import operations
 
 # Create your models here.
+
 class radacct(models.Model):
     AcctSessionId = models.TextField()
     AcctUniqueID = models.TextField(unique=True)
     UserName = models.TextField()
     GroupName = models.TextField()
     Realms = models.TextField()
-    NASIPAddress = models.IPAddressField()
+    NASIPAddress = models.GenericIPAddressField()
     NASPortId = models.TextField()
     NASPortType = models.TextField()
     AcctStartTime = models.DateTimeField()
@@ -25,9 +28,9 @@ class radacct(models.Model):
     AcctTerminateCause = models.TextField()
     ServiceType = models.TextField()
     FramedProtocol = models.TextField()
-    FramedIPAddress = models.IPAddressField()
-    FramedIPv6Address = models.IPAddressField()
-    FramedIPv6Prefix = models.IPAddressField()
+    FramedIPAddress = models.GenericIPAddressField()
+    FramedIPv6Address = models.GenericIPAddressField()
+    FramedIPv6Prefix = models.GenericIPAddressField()
     FramedInterfaceId = models.TextField()
     DelegatedIPv6Prefix = models.TextField()
     Class = models.TextField()
@@ -35,25 +38,25 @@ class radacct(models.Model):
 class radcheck(models.Model):
     UserName = models.TextField(null=False,default='',)
     Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,null=False,default='==')
+    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
     Value = models.TextField(null=False,default='')
 
 class radgroupcheck(models.Model):
     GroupName = models.TextField(null=False,default='')
     Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,null=False,default='==')
+    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
     Value = models.TextField(null=False,default='')
 
 class radgroupreply(models.Model):
     GroupName = models.TextField(null=False,default='')
     Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,null=False,default='==')
+    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
     Value = models.TextField(null=False,default='')
 
 class radreply(models.Model):
     UserName = models.TextField(null=False,default='',)
     Attribute = models.TextField(null=False,default='')
-    op = models.CharField(max_length=2,null=False,default='==')
+    op = models.CharField(max_length=2,choices=operations,null=False,default='==')
     Value = models.TextField(null=False,default='')
 
 class radusergroup(models.Model):
@@ -81,5 +84,6 @@ class nas(models.Model):
     description = models.TextField()
 
 class nasreload(models.Model):
-    NASIPAddress = models.IPAddressField(primary_key=True)
+    NASIPAddress = models.GenericIPAddressField(primary_key=True)
     ReloadTime = models.DateTimeField(null=False)
+    

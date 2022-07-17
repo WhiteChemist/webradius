@@ -19,17 +19,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
+confparser = ConfigParser()
+confparser.read("/home/whitechemist/projects/webradius/variables_1.ini")
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_3gbwymcj28sd_njbivilmy@o#hg)5x-i(u-rxncsxwnujem0z'
+SECRET_KEY = confparser['django']['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-confparser = ConfigParser()
-confparser.read("/home/whitechemist/projects/webradius/variables_1.ini")
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'webradius.urls'
-TEMPLATE_DIR=os.path.join(BASE_DIR,"templates")
+TEMPLATE_DIR=os.path.join("../webradius/radius")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'webradius.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': confparser['database']['dbname'],
-        'USER': confparser['database']['user'],
-        'PASSWORD': confparser['database']['password'],
-        'HOST': confparser['database']['host'],
-        'PORT': confparser['database']['port']
+        'NAME': confparser["database"]["dbname"],
+        'USER': confparser["database"]["user"],
+        'PASSWORD': confparser["database"]["password"],
+        'HOST': confparser["database"]["host"],
+        'PORT': confparser["database"]["port"]
     }
 }
 
@@ -113,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = confparser["common"]["locale"]
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = confparser["common"]["timezone"]
 
 USE_I18N = True
 

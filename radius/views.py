@@ -4,4 +4,4 @@ from django.template.response import TemplateResponse
 # Create your views here.
 
 def index(request):
-    return TemplateResponse('',"templates/pages/index.html")
+    return TemplateResponse(request=request,template="templates/pages/index.html")
