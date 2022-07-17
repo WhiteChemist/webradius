@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import configparser
 from pathlib import Path
-
+from configparser import ConfigParser
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+confparser = ConfigParser().read("../variables.ini")
 
 # Application definition
 
@@ -76,8 +78,12 @@ WSGI_APPLICATION = 'webradius.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': confparser["database"]["dbname"],
+        'USER': confparser["database"]["user"],
+        'PASSWORD': confparser["database"]["password"],
+        'HOST': confparser["database"]["host"],
+        'PORT': confparser["database"]["port"]
     }
 }
 
