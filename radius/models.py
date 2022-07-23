@@ -6,7 +6,7 @@ from .data_types import operations,vendors
 
 class radacct(models.Model):
     AcctSessionId = models.TextField()
-    AcctUniqueID = models.TextField(unique=True)
+    AcctUniqueID = models.TextField(unique=True,db_index=True)
     UserName = models.TextField()
     GroupName = models.TextField()
     Realms = models.TextField()
