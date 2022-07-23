@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from radius.views import index
 
+handler404="radius.views.page_not_found"
+
 urlpatterns = [
     path('',index,name="index"),
     path('admin/', admin.site.urls)
