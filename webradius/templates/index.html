@@ -2,7 +2,10 @@
 {% load static %}
 <html lang="en">
 
-{% include "pages/blocks/head.html"%}
+<head>
+    {% include "templates/pages/blocks/head.html"%}
+
+</head>
 
 <body>
     <!-- ============================================================== -->
@@ -68,13 +71,13 @@
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-c3.html">Добавить пользователя</a>
+                                            <a class="nav-link" href="templates/adduser_page.html">Добавить пользователя</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-c3.html">Изменить пользователя</a>
+                                            <a class="nav-link" href="templates/updateuser_page.html">Изменить пользователя</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-chartist.html">Удалить пользователя</a>
+                                            <a class="nav-link" href="templates/deleteuser_page.html">Удалить пользователя</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -86,13 +89,13 @@
                                         <div id="submenu-2" class="collapse submenu" style="">
                                             <ul class="nav flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="pages/chart-c3.html">Добавить группу</a>
+                                                    <a class="nav-link" href="templates/addgroup_page.html">Добавить группу</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="pages/chart-c3.html">Изменить группу</a>
+                                                    <a class="nav-link" href="templates/updategroup_page.html">Изменить группу</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="pages/chart-chartist.html">Удалить группу</a>
+                                                    <a class="nav-link" href="templates/deleteuser_page.html">Удалить группу</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -196,25 +199,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <!-- ============================================================== -->
-
-                            <!-- ============================================================== -->
-
-                            <!-- recent orders  -->
-                            <!-- ============================================================== -->
                             <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                             </div>
-                            <!-- ============================================================== -->
-                            <!-- end recent orders  -->
-
-
-                            <!-- ============================================================== -->
-                            <!-- ============================================================== -->
-                            <!-- customer acquistion  -->
-                            <!-- ============================================================== -->
-                            <!-- ============================================================== -->
-                            <!-- end customer acquistion  -->
-                            <!-- ============================================================== -->
                         </div>
                         <div class="row">
 
@@ -230,34 +216,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- ============================================================== -->
-                            <!-- end footer -->
-                            <!-- ============================================================== -->
                         </div>
-                        <!-- ============================================================== -->
-                        <!-- end wrapper  -->
-                        <!-- ============================================================== -->
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- end main wrapper  -->
-                    <!-- ============================================================== -->
-                    <!-- Optional JavaScript -->
-                    <!-- jquery 3.3.1 -->
- <!--                       <script src="{% static 'assets/vendor/jquery/jquery-3.3.1.min.js'%}"></script>
-
-                        <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.js'%}"></script>
-
-                        <script src="{% static 'assets/vendor/slimscroll/jquery.slimscroll.js'%}"></script>
-                        <script src="{% static 'assets/libs/js/main-js.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/chartist-bundle/chartist.min.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/sparkline/jquery.sparkline.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/morris-bundle/raphael.min.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/morris-bundle/morris.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/c3charts/c3.min.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/c3charts/d3-5.4.0.min.js'%}"></script>
-                        <script src="{% static 'assets/vendor/charts/c3charts/C3chartjs.js'%}"></script>
-                        <script src="{% static 'assets/libs/js/dashboard-ecommerce.js'%}"></script> -->
-                    {% include "pages/blocks/jquery.html"%}
+                    {% include "templates/pages/blocks/jquery.html"%}
 </body>
 
 </html>

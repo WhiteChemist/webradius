@@ -25,9 +25,9 @@ confparser.read("/home/whitechemist/projects/webradius/variables_1.ini")
 SECRET_KEY = confparser['django']['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = confparser['common']['debug']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 STATIC_URL = 'static/'
 # Application definition
 STATICFILES_DIRS = [
@@ -54,7 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'webradius.urls'
-TEMPLATE_DIR=os.path.join("../webradius/radius")
+# TEMPLATE_DIR=os.path.join("../webradius/radius")
+TEMPLATE_DIR=os.path.join("../webradius/webradius")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

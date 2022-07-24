@@ -13,13 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from cgitb import handler
+from logging import handlers
 from django.contrib import admin
 from django.urls import path
-from radius.views import index
+from radius.views import index,handler404,adduser,updateuser,deleteuser
 
-handler404="radius.views.page_not_found"
+
 
 urlpatterns = [
     path('',index,name="index"),
+    path('templates/adduser_page.html',adduser,name="adduser"),
+    path('templates/updateuser_page.html',updateuser,name="updateuser"),
+    path('templates/deleteuser_page.html',deleteuser,name="deleteuser"),
+    path('templates/addgroup_page.html',adduser,name="addgroup"),
+    path('templates/updategroup_page.html',adduser,name="updategroup"),
+    path('templates/deletegroup_page.html',adduser,name="deletegroup"),
     path('admin/', admin.site.urls)
 ]
+
+handler404=handler404
