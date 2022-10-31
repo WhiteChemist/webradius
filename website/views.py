@@ -1,5 +1,5 @@
-from pipes import Template
-from django.shortcuts import render
+from django.http import HttpResponse
+from urllib3 import HTTPResponse
 from django.template.response import TemplateResponse
 
 # Create your views here.
