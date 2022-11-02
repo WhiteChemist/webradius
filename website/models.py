@@ -1,4 +1,6 @@
 from curses import meta
+from email.policy import default
+from ipaddress import ip_address
 from tabnanny import verbose
 from django.db import models
 from django.core.validators import RegexValidator
@@ -78,6 +80,61 @@ class user_groups(models.Model):
         return f"{self.group}"
 
 
+class mac_addresses(models.Model):
+    class Meta:
+        verbose_name = 'Таблица мак адресов пользователей'
+        verbose_name_plural = 'Таблица мак адресов пользователей'
+
+    id_user_mac = models.BigAutoField(primary_key=True,default=0)
+    mac_address_eth = models.TextField(
+        max_length=17,
+        verbose_name="Мак адрес сетевой карты ethernet",
+        validators=[
+            RegexValidator(
+                regex="^[a-fA-F0-9]{2}(:[a-fA-F0-9]{2}){5}$",
+                message="Неизвестный тип мак адреса",
+            )
+        ],
+        null=True,
+    )
+    mac_address_wifi = models.TextField(
+        max_length=17,
+        verbose_name="Мак адрес сетевой карты WiFi",
+        validators=[
+            RegexValidator(
+                regex="^[a-fA-F0-9]{2}(:[a-fA-F0-9]{2}){5}$",
+                message="Неизвестный тип мак адреса",
+            )
+        ],
+        null=True,
+    )
+    mac_address_add_1 = models.TextField(
+        max_length=17,
+        verbose_name="Мак адрес сетевого адаптера",
+        validators=[
+            RegexValidator(
+                regex="^[a-fA-F0-9]{2}(:[a-fA-F0-9]{2}){5}$",
+                message="Неизвестный тип мак адреса",
+            )
+        ],
+        null=True,
+        help_text="Дополнительный мак адрес (Необязательно)",
+        blank=True
+    )
+    mac_address_add_2 = models.TextField(
+        max_length=17,
+        verbose_name="Мак адрес сетевого адаптера",
+        validators=[
+            RegexValidator(
+                regex="^[a-fA-F0-9]{2}(:[a-fA-F0-9]{2}){5}$",
+                message="Неизвестный тип мак адреса",
+            )
+        ],
+        null=True,
+        help_text="Дополнительный мак адрес (Необязательно)",
+        blank=True
+    )
+
 class users(models.Model):
 
     class Meta:
@@ -89,41 +146,8 @@ class users(models.Model):
     uname = models.TextField(max_length=20, null=True,verbose_name="Имя",blank=True)
     ulast_name = models.TextField(max_length=30, null=True,verbose_name="Отчество",blank=True)
     id_user_group = models.ForeignKey(user_groups, on_delete=models.CASCADE,verbose_name="Группа пользователя")
+    id_mac = models.ForeignKey(mac_addresses, on_delete=models.CASCADE,verbose_name="Мак адреса",default=0)
     email = models.EmailField(null=False,verbose_name="Электронный адрес",default="user@mail.com")
-    mac_address_eth = models.TextField(
-        max_length=17,
-        verbose_name="Мак адрес сетевой карты ethernet",
-        validators=[
-            RegexValidator(
-                regex="/^[0-9a-f]{2}(:[0-9a-f]{2}){5}$/i",
-                message="Unknown type mac address",
-            )
-        ],
-        null=False,
-    )
-    mac_address_wifi = models.TextField(
-        max_length=17,
-        verbose_name="Мак адрес сетевой карты WiFi",
-        validators=[
-            RegexValidator(
-                regex="/^[0-9a-f]{2}(:[0-9a-f]{2}){5}$/i",
-                message="Unknown type mac address",
-            )
-        ],
-        null=False,
-    )
-    mac_address_adapt = models.TextField(
-        max_length=17,
-        verbose_name="Мак адрес сетевого адаптера",
-        validators=[
-            RegexValidator(
-                regex="/^[0-9a-f]{2}(:[0-9a-f]{2}){5}$/i",
-                message="Unknown type mac address",
-            )
-        ],
-        null=True,
-    )
-    date_create = models.DateTimeField(null=False,editable=False)
     level_access_network = models.ForeignKey(
         level_access_network, on_delete=models.CASCADE,verbose_name="Тип разрешения доступа к сети"
     )
@@ -131,8 +155,9 @@ class users(models.Model):
         level_access_network_devices, on_delete=models.CASCADE,verbose_name="Тип разрешения доступа к сетевому оборудованию"
     )
     network_login = models.TextField(max_length=30,null=False,default="",verbose_name="Логин для подключения к сетевому оборудованию",help_text="Логин для подключения к сетевому оборудованию (Необязательно)")
-    network_password = models.TextField(max_length=30,null=False,default="",verbose_name="Пароль для подключения к сетевому оборудованию ",help_text="Пароль для подключения к сетевому оборудованию (Необязательно)")
-
+     
+    def __str__(self):
+        return f"{self.username}"
 
 class fail_tries(models.Model):
 
@@ -145,20 +170,3 @@ class fail_tries(models.Model):
     id_nas_connect = models.ForeignKey(nas, on_delete=models.CASCADE,verbose_name="На каком NAS произошла ошибка")
     id_nas_port = models.ForeignKey(nas_port_type, on_delete=models.CASCADE,related_name='%(class)s_requests_created',verbose_name="Тип доступа")
 
-
-class accounting(models.Model):
-
-    class Meta:
-        verbose_name = 'Учёт запросов'
-        verbose_name_plural = 'Учёт запросов'
-
-    id_acct = models.BigAutoField(primary_key=True)
-    id_user = models.ForeignKey(users, on_delete=models.CASCADE,verbose_name="Пользователь")
-    id_nas = models.ForeignKey(nas, on_delete=models.CASCADE,verbose_name="NAS")
-    id_nas_port = models.ForeignKey(nas_port_type, on_delete=models.CASCADE,related_name='%(class)s_requests_created',verbose_name="Тип доступа")
-    ip_access = models.GenericIPAddressField(verbose_name="IP")
-    acct_start_time = models.DateTimeField(verbose_name="Начало учёта")
-    acct_update_time = models.DateTimeField(verbose_name=" Обновление учёта")
-    acct_stop_time = models.DateTimeField(verbose_name="Конец учёта")
-    connect_info_start = models.DateTimeField(verbose_name="Начало соединения")
-    connect_info_stop = models.DateTimeField(verbose_name="Конец соединения")

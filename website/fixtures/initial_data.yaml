@@ -1,0 +1,57 @@
+- model: website.nas_port_type
+  pk: 1
+  fields:
+    port_type: Wireless-802.11
+- model: website.nas_port_type
+  pk: 2
+  fields:
+    port_type: Ethernet
+- model: website.level_access_network
+  pk: 1
+  fields:
+    type_level_access: Empty
+- model: website.level_access_network
+  pk: 2
+  fields:
+    type_level_access: Only Wireless
+- model: website.level_access_network
+  pk: 3
+  fields:
+    type_level_access: Only Ethernet
+- model: website.level_access_network
+  pk: 4
+  fields:
+    type_level_access: All
+- model: website.level_access_network_devices
+  pk: 1
+  fields:
+    attribute: none
+    type_level_access: Mikrotik-Group
+- model: website.level_access_network_devices
+  pk: 2
+  fields:
+    attribute: read
+    type_level_access: Mikrotik-Group
+- model: website.level_access_network_devices
+  pk: 3
+  fields:
+    attribute: full
+    type_level_access: Mikrotik-Group
+- model: website.user_groups
+  pk: 1
+  fields:
+    group: employee
+    id_level_access_network: 4
+    id_level_access_network_devices: 1
+- model: website.user_groups
+  pk: 2
+  fields:
+    group: anykey
+    id_level_access_network: 4
+    id_level_access_network_devices: 2
+- model: website.user_groups
+  pk: 3
+  fields:
+    group: sysadmin
+    id_level_access_network: 4
+    id_level_access_network_devices: 3

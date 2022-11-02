@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'radius',
         'USER': 'djangoradius',
         'PASSWORD': 'wP903G1XPfFvvxW2Wxyb',
-        'HOST': '135.181.85.1',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }

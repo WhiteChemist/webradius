@@ -403,3 +403,4 @@ VALUE		Packet-Type	Accounting-Message		10
 VALUE		Packet-Type	Access-Challenge		11
 VALUE		Packet-Type	Status-Server			12
 VALUE		Packet-Type	Status-Client			13
+Framed-IP-Address
