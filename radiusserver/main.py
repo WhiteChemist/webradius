@@ -12,8 +12,9 @@ logging.basicConfig(filename="pyrad.log", level="DEBUG",
 
 from radserver import RadServer
 
-if __name__ == '__main__':
+def start():
     tprint("RADIUS-SERVER")
+    print(" Radius server awaiting connections...")
     config = configparser.ConfigParser()
     config.read("radius.ini")
     srv = RadServer(dict=dictionary.Dictionary("","dictionary","dictionary.freeradius","dictionary.mikrotik"), coa_enabled=True)
@@ -23,3 +24,7 @@ if __name__ == '__main__':
 
     # start server
     srv.Run()
+
+
+if __name__ == '__main__':
+    start()

@@ -58,7 +58,7 @@ class level_access_network_devices(models.Model):
     type_level_access = models.TextField(max_length=20, null=False,verbose_name="Тип разрешения доступа к сетевому оборудованию")
 
     def __str__(self):
-        return f"{self.type_level_access}"
+        return f"{self.attribute}"
 
 
 class user_groups(models.Model):

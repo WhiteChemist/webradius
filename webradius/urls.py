@@ -18,12 +18,14 @@ from django.urls import path
 from website.views import *
 
 urlpatterns = [
-    path('',index,name="index"),
     path('templates/adduser_page.html',adduser,name="adduser"),
     path('templates/updateuser_page.html',updateuser,name="updateuser"),
     path('templates/deleteuser_page.html',deleteuser,name="deleteuser"),
     path('templates/addgroup_page.html',adduser,name="addgroup"),
     path('templates/updategroup_page.html',adduser,name="updategroup"),
     path('templates/deletegroup_page.html',adduser,name="deletegroup"),    
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
 ]
+admin.site.index_title = "Модуль администрирования RADIUS сервера"
+admin.site.site_title = "Модуль администрирования"
+admin.site.site_header = "Модуль администрирования"
